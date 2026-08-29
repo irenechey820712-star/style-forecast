@@ -1,0 +1,871 @@
+<title>스타일 포캐스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#eae6da; --surface:#f7f4ea; --surface-2:#ffffff; --surface-3:#efe9db;
+    --ink:#211f1a; --muted:#6f6a5c; --line:#d7d1bf;
+    --accent:#a13b2c; --accent-ink:#ffffff; --accent-soft:#eaddd4;
+    --gold:#93712f; --gold-soft:#e8dcb8; --navy:#2c3b52;
+    --good:#3d7a4e; --warn:#9a6a1e;
+    --shadow:0 1px 2px rgba(33,31,26,.06),0 10px 28px -14px rgba(33,31,26,.22);
+    --radius:11px; --r-sm:8px;
+    --serif:"Bodoni Moda","Gowun Batang",Georgia,serif;
+    --serif-kr:"Gowun Batang","Bodoni Moda",Georgia,serif;
+    --sans:"IBM Plex Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Sans KR",ui-monospace,SFMono-Regular,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#17150f; --surface:#201d16; --surface-2:#262319; --surface-3:#2f2b1f;
+      --ink:#f1ede1; --muted:#a89f8b; --line:#3a3527;
+      --accent:#e2765f; --accent-ink:#1a1108; --accent-soft:#3a2a22;
+      --gold:#d3b365; --gold-soft:#3a3120; --navy:#9db2cf;
+      --good:#78c78d; --warn:#e0b062;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 32px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#17150f; --surface:#201d16; --surface-2:#262319; --surface-3:#2f2b1f;
+    --ink:#f1ede1; --muted:#a89f8b; --line:#3a3527;
+    --accent:#e2765f; --accent-ink:#1a1108; --accent-soft:#3a2a22;
+    --gold:#d3b365; --gold-soft:#3a3120; --navy:#9db2cf;
+    --good:#78c78d; --warn:#e0b062;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 32px -14px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 22px 90px}
+
+  header.hero{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+    border-bottom:1.5px solid var(--ink);padding-bottom:22px;margin-bottom:30px}
+  .hero .lead{display:flex;flex-direction:column;gap:8px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600}
+  h1{font-family:var(--serif);font-size:clamp(30px,5vw,44px);margin:0;font-weight:600;
+    letter-spacing:-.005em;line-height:1.05}
+  .subtitle{color:var(--muted);font-size:14.5px;max-width:60ch;margin:2px 0 0}
+  .hero .tools{display:flex;gap:8px;flex-shrink:0}
+  .icon-btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;display:grid;place-items:center;
+    transition:border-color .15s}
+  .icon-btn:hover{border-color:var(--accent)}
+
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:start}
+  @media (max-width:900px){.layout{grid-template-columns:1fr;gap:22px}}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;box-shadow:var(--shadow);position:sticky;top:14px}
+  @media (max-width:900px){.panel{position:static}}
+  .panel-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 14px}
+  .panel-title.mt{margin-top:22px;padding-top:16px;border-top:1px dashed var(--line)}
+
+  .field{margin-bottom:16px}
+  .field>.flabel{display:block;font-size:12.5px;font-weight:600;margin-bottom:7px}
+  .field .hint{color:var(--muted);font-weight:400;font-size:11px;margin-left:3px}
+
+  .dich{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:5px}
+  .dich button{appearance:none;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);
+    border-radius:var(--r-sm);padding:7px 4px;cursor:pointer;font-family:var(--sans);line-height:1.2;transition:.13s}
+  .dich button .k{font-family:var(--serif);font-weight:600;font-size:15px;display:block;color:var(--ink)}
+  .dich button .d{font-size:10px}
+  .dich button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .dich button[aria-pressed="true"] .k{color:#fff}
+  .code-live{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.16em;text-align:center;
+    margin-top:6px;color:var(--accent)}
+  .code-live .un{color:var(--line)}
+
+  .seg,.chips{display:flex;flex-wrap:wrap;gap:5px}
+  .seg button,.chips button{appearance:none;border:1px solid var(--line);background:var(--surface-2);
+    color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:var(--sans);
+    font-size:12.5px;transition:.13s}
+  .seg button:hover,.chips button:hover{border-color:var(--gold)}
+  .seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tpo{display:flex;flex-direction:column;gap:4px}
+  .tpo button{text-align:left;border-radius:var(--r-sm)}
+  .tpo button .t2{display:block;font-size:10.5px;color:var(--muted)}
+  .tpo button[aria-pressed="true"] .t2{color:var(--accent-ink);opacity:.85}
+
+  .drop{border:1.5px dashed var(--line);border-radius:var(--radius);padding:15px;text-align:center;
+    cursor:pointer;background:var(--surface-2);transition:.15s}
+  .drop:hover,.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+  .drop .di{font-size:20px}
+  .drop p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+  .drop.has{padding:0;border-style:solid;position:relative;aspect-ratio:4/5;overflow:hidden}
+  .drop.has img{width:100%;height:100%;object-fit:cover;display:block}
+  .drop .clear{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.6);color:#fff;border:0;
+    border-radius:999px;width:25px;height:25px;cursor:pointer;font-size:13px}
+
+  .go{appearance:none;width:100%;border:0;border-radius:var(--r-sm);cursor:pointer;background:var(--accent);
+    color:var(--accent-ink);font-family:var(--sans);font-weight:600;font-size:16px;padding:12px;margin-top:4px;
+    transition:.15s}
+  .go:hover{filter:brightness(1.06)}
+  .go:disabled{background:var(--surface-3);color:var(--muted);cursor:not-allowed}
+  .go .s{font-family:var(--serif);font-style:italic}
+
+  .results-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  .results-head h2{font-family:var(--serif-kr);font-size:21px;margin:0;font-weight:700}
+  .results-head .note{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+
+  .empty{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);
+    padding:46px 24px;text-align:center;box-shadow:var(--shadow)}
+  .empty .es{font-family:var(--serif);font-size:52px;color:var(--line);line-height:1}
+  .empty h3{font-family:var(--serif-kr);margin:10px 0 5px;font-size:18px}
+  .empty p{color:var(--muted);font-size:13px;max-width:34ch;margin:0 auto}
+
+  /* personal color banner */
+  .pc-band{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);
+    border-left:3px solid var(--gold);border-radius:var(--radius);padding:14px 16px;margin-bottom:18px;
+    box-shadow:var(--shadow);opacity:0;animation:rise .5s ease forwards}
+  .pc-band .pcph{width:52px;height:66px;border-radius:6px;object-fit:cover;border:1px solid var(--line);flex:none}
+  .pc-band .pctxt{font-size:13px;line-height:1.5}
+  .pc-band .pctxt b{font-family:var(--serif-kr);font-size:15px}
+  .pc-band .pctxt .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;
+    margin:0 2px;border:1px solid rgba(0,0,0,.15)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;opacity:0;animation:rise .5s ease forwards}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .card .fig{background:var(--surface-3);position:relative;border-bottom:1px solid var(--line);
+    display:flex;justify-content:center;padding:8px 0}
+  .card .fig svg{display:block;width:auto;height:auto;max-height:340px;max-width:100%}
+  .card .rank{position:absolute;top:8px;left:8px;font-family:var(--serif);font-weight:600;font-size:12px;
+    background:var(--ink);color:#fff;padding:2px 8px;border-radius:999px}
+  .card .pcmatch{position:absolute;top:8px;right:8px;font-size:10.5px;font-family:var(--mono);
+    background:var(--gold-soft);color:var(--gold);padding:2px 7px;border-radius:999px}
+  .card-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .concept{font-family:var(--serif-kr);font-size:18px;font-weight:700;line-height:1.25;margin:0;text-wrap:balance}
+  .score-big{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--accent);line-height:1;
+    font-variant-numeric:tabular-nums}
+  .score-big small{font-size:11px;color:var(--muted);margin-left:3px;font-family:var(--sans)}
+  .bars{display:flex;flex-direction:column;gap:5px}
+  .bar-row{display:grid;grid-template-columns:52px 1fr 26px;align-items:center;gap:7px}
+  .bar-row .lbl{font-size:10.5px;color:var(--muted);font-family:var(--mono)}
+  .bar-track{height:6px;background:var(--surface-3);border-radius:999px;overflow:hidden}
+  .bar-fill{height:100%;background:var(--gold);border-radius:999px;transform-origin:left;
+    animation:grow .7s ease forwards;transform:scaleX(0)}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .bar-row .val{font-size:10.5px;color:var(--muted);font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+  .blurb{font-size:13px;color:var(--ink)}
+  .swatches{display:flex;gap:5px}
+  .swatch{flex:1;min-width:0}
+  .swatch .cc{height:24px;border-radius:5px;border:1px solid rgba(0,0,0,.12)}
+  .swatch .cn{font-size:9.5px;color:var(--muted);margin-top:3px;text-align:center;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  .dl{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+  .dl .dr{display:flex;gap:8px;font-size:12px}
+  .dl .dr .k{font-family:var(--mono);color:var(--muted);flex:none;width:42px}
+  .dl .dr .v{color:var(--ink)}
+  .try{appearance:none;border:1px solid var(--accent);background:transparent;color:var(--accent);
+    border-radius:var(--r-sm);padding:8px;cursor:pointer;font-family:var(--sans);font-size:12.5px;
+    font-weight:600;transition:.14s}
+  .try:hover{background:var(--accent);color:var(--accent-ink)}
+  .try:disabled{border-color:var(--line);color:var(--muted);cursor:not-allowed}
+  .tryout{margin-top:2px}
+  .tryout img{width:100%;border-radius:var(--r-sm);border:1px solid var(--line)}
+  .tryout .tmsg{font-size:11.5px;color:var(--muted);line-height:1.5}
+  .tryout .tmsg code{background:var(--surface-3);padding:1px 4px;border-radius:4px;font-size:10.5px}
+
+  /* moodboard */
+  .board{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;box-shadow:var(--shadow);margin-top:20px;text-align:center}
+  .board h2{font-family:var(--serif-kr);font-size:19px;margin:0 0 4px;font-weight:700}
+  .board .bsub{font-size:12.5px;color:var(--muted);margin:0 0 14px}
+  .board img{max-width:360px;width:100%;border-radius:var(--r-sm);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .board .bact{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+  .ghost{appearance:none;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);
+    border-radius:999px;padding:7px 15px;font-family:var(--sans);font-size:12.5px;cursor:pointer;transition:.14s}
+  .ghost:hover{border-color:var(--accent)}
+  .ghost[hidden]{display:none}
+
+  .callout{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--surface-2);
+    border-radius:var(--r-sm);padding:13px 15px;font-size:12.5px;line-height:1.55;margin-top:20px}
+  .callout b{color:var(--ink)}
+  .callout code{font-family:var(--mono);background:var(--surface-3);padding:1px 5px;border-radius:4px;font-size:11.5px}
+
+  footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);
+    font-family:var(--mono);line-height:1.7}
+  .tagline{font-family:var(--serif);font-style:italic;font-size:18px;text-align:center;margin:26px 0 0;color:var(--accent)}
+
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:3px}
+
+  .loader{position:fixed;inset:0;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(3px);
+    display:grid;place-items:center;z-index:60}
+  .loader[hidden]{display:none}
+  .loader .ring{width:44px;height:44px;border:3px solid var(--line);border-top-color:var(--accent);
+    border-radius:50%;margin:0 auto 14px;animation:spin .9s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loader .msg{font-family:var(--serif-kr);font-size:16px;text-align:center}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="lead">
+      <div class="eyebrow">2027 Fashion Forecast · MBTI Style Match</div>
+      <h1>스타일 포캐스트</h1>
+      <p class="subtitle">2024–2026 파리·밀라노·뉴욕·런던 컬렉션 무드와 MBTI 성향·상황(TPO)·퍼스널 컬러를
+        규칙 기반으로 매칭해, 어울리는 스타일 TOP 3와 착용 일러스트를 만듭니다.</p>
+    </div>
+    <div class="tools">
+      <button class="icon-btn" id="theme" aria-label="라이트/다크 전환">◐</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <form class="panel" id="form" autocomplete="off">
+      <p class="panel-title">1 · 성향 &amp; 조건</p>
+
+      <div class="field">
+        <span class="flabel">MBTI <span class="hint">네 글자를 눌러 선택</span></span>
+        <div class="dich" data-axis="EI">
+          <button type="button" data-v="E" aria-pressed="false"><span class="k">E</span><span class="d">외향</span></button>
+          <button type="button" data-v="I" aria-pressed="false"><span class="k">I</span><span class="d">내향</span></button>
+        </div>
+        <div class="dich" data-axis="SN">
+          <button type="button" data-v="S" aria-pressed="false"><span class="k">S</span><span class="d">감각·현실</span></button>
+          <button type="button" data-v="N" aria-pressed="false"><span class="k">N</span><span class="d">직관·상징</span></button>
+        </div>
+        <div class="dich" data-axis="TF">
+          <button type="button" data-v="T" aria-pressed="false"><span class="k">T</span><span class="d">사고</span></button>
+          <button type="button" data-v="F" aria-pressed="false"><span class="k">F</span><span class="d">감정</span></button>
+        </div>
+        <div class="dich" data-axis="JP">
+          <button type="button" data-v="J" aria-pressed="false"><span class="k">J</span><span class="d">계획</span></button>
+          <button type="button" data-v="P" aria-pressed="false"><span class="k">P</span><span class="d">즉흥</span></button>
+        </div>
+        <div class="code-live" id="codeLive"><span class="un">____</span></div>
+      </div>
+
+      <div class="field">
+        <span class="flabel">성별 표현</span>
+        <div class="seg" data-single id="gender">
+          <button type="button" data-v="여성" aria-pressed="false">여성</button>
+          <button type="button" data-v="남성" aria-pressed="false">남성</button>
+          <button type="button" data-v="자유" aria-pressed="false">자유</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="flabel">연령대</span>
+        <div class="seg" data-single id="age">
+          <button type="button" data-v="teen" aria-pressed="false">10–20대 초</button>
+          <button type="button" data-v="twenties" aria-pressed="false">20후–30초</button>
+          <button type="button" data-v="thirties" aria-pressed="false">30후–40대</button>
+          <button type="button" data-v="fifties" aria-pressed="false">50대+</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="flabel">상황 (TPO)</span>
+        <div class="tpo" data-single id="tpo">
+          <button type="button" data-v="present" aria-pressed="false">발표 · 면접<span class="t2">단정하고 신뢰감 있게</span></button>
+          <button type="button" data-v="daily" aria-pressed="false">학교 · 평일<span class="t2">매일 편한 데일리</span></button>
+          <button type="button" data-v="date" aria-pressed="false">약속 · 데이트<span class="t2">가까이서 봐도 좋은 무드</span></button>
+          <button type="button" data-v="trip" aria-pressed="false">나들이 · 여행<span class="t2">많이 걷는 활동적 일정</span></button>
+          <button type="button" data-v="event" aria-pressed="false">행사 · 파티<span class="t2">포인트 하나로 화려하게</span></button>
+        </div>
+      </div>
+
+      <p class="panel-title mt">2 · 취향 (선택)</p>
+
+      <div class="field">
+        <span class="flabel">선호 스타일 <span class="hint">복수 선택</span></span>
+        <div class="chips" id="styles">
+          <button type="button" data-v="minimal" aria-pressed="false">미니멀</button>
+          <button type="button" data-v="classic" aria-pressed="false">클래식</button>
+          <button type="button" data-v="street" aria-pressed="false">스트릿</button>
+          <button type="button" data-v="romantic" aria-pressed="false">로맨틱</button>
+          <button type="button" data-v="sporty" aria-pressed="false">스포티</button>
+          <button type="button" data-v="creative" aria-pressed="false">크리에이티브</button>
+          <button type="button" data-v="natural" aria-pressed="false">내추럴</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="flabel">피하고 싶은 것 <span class="hint">복수 선택</span></span>
+        <div class="chips" id="avoid">
+          <button type="button" data-v="print" aria-pressed="false">화려한 프린트</button>
+          <button type="button" data-v="deco" aria-pressed="false">과한 장식</button>
+          <button type="button" data-v="casual" aria-pressed="false">너무 캐주얼</button>
+          <button type="button" data-v="formal" aria-pressed="false">너무 포멀</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="flabel">내 사진 <span class="hint">선택 · 퍼스널 컬러 분석</span></span>
+        <div class="drop" id="drop" tabindex="0" role="button" aria-label="사진 업로드">
+          <div class="di">↑</div>
+          <p>사진을 끌어다 놓거나 눌러서 업로드<br />밝은 곳에서 찍은 얼굴 사진이 가장 정확해요</p>
+          <input type="file" id="file" accept="image/*" hidden />
+        </div>
+      </div>
+
+      <button type="submit" class="go" id="go" disabled><span class="s">✦</span> 스타일 계산하기</button>
+    </form>
+
+    <section id="results" aria-live="polite">
+      <div class="results-head">
+        <h2>추천 스타일 TOP 3</h2>
+        <span class="note" id="note"></span>
+      </div>
+      <div class="empty" id="empty">
+        <div class="es">✦</div>
+        <h3>결과가 여기에 나타납니다</h3>
+        <p>MBTI · 성별 · 연령대 · 상황을 고르고 계산해 보세요. 사진을 올리면 퍼스널 컬러까지 반영됩니다.</p>
+      </div>
+      <div id="out"></div>
+    </section>
+  </div>
+
+  <footer id="footer">
+    매치 스코어 = MBTI 적합도×0.35 + 상황(TPO)×0.20 + 트렌드×0.20 + 연령×0.15 + Z세대 선호×0.10 (가중 합산, 100점).
+    이 앱은 이미지 생성 AI를 호출하지 않고 규칙 기반으로 매칭하며, 착용 이미지는 조건에 따라 조립되는 벡터(SVG)
+    일러스트입니다. 퍼스널 컬러는 업로드 사진의 평균 톤에서 추정한 참고값입니다.
+  </footer>
+</div>
+
+<div class="loader" id="loader" hidden>
+  <div><div class="ring"></div><div class="msg" id="loaderMsg">성향 데이터를 불러오는 중…</div></div>
+</div>
+
+<script>
+"use strict";
+
+/* ============ virtual try-on endpoint ============
+ * 배포한 서버리스 함수 URL을 넣으면 "내 착용 이미지 만들기" 버튼이 활성화됩니다.
+ * 비워두면 버튼은 안내 문구만 보여줍니다.  (virtual-tryon/ 폴더의 README 참고) */
+var TRYON_ENDPOINT = "";
+
+/* ---------- theme ---------- */
+(function(){
+  var root=document.documentElement,btn=document.getElementById('theme');
+  try{var s=localStorage.getItem('sf-theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  btn.addEventListener('click',function(){
+    var c=root.getAttribute('data-theme');
+    var n=c==='dark'?'light':c==='light'?'dark':(matchMedia('(prefers-color-scheme:dark)').matches?'light':'dark');
+    root.setAttribute('data-theme',n);try{localStorage.setItem('sf-theme',n);}catch(e){}
+  });
+})();
+
+/* ============ archetype catalog (원본 스타일 포캐스트 + 착용 스펙) ============ */
+var ARCHETYPES=[
+  {id:"strategist",name:"사일런트 스트래티지스트",
+   blurb:"장식을 걷어낸 구조적 테일러링으로 존재감을 만드는 스타일. 말보다 완성도로 설득하는 사람에게.",
+   colors:[["#3b3a36","차콜 그레이"],["#1f2733","잉크 네이비"],["#171614","오프블랙"],["#8b8579","웜 그레이"]],
+   pattern:"솔리드 + 헤링본 미세 패턴",
+   materials:["울 개버딘","리사이클 캐시미어 블렌드","실크 안감"],
+   items:["싱글브레스트 스트럭처드 재킷","스트레이트 울 트라우저","미니멀 니트 폴로","첼시 부츠"],
+   profile:{EI:-70,SN:40,TF:70,JP:60}, trend:90, genZ:45,
+   ageFit:{teen:40,twenties:65,thirties:85,fifties:95},
+   tpo:{present:95,daily:60,date:70,trip:45,event:82},
+   look:{top:"knit",sleeve:"long",bottom:"pants",outer:"blazer",shoes:"boot",bag:"tote",c:{top:3,bottom:1,outer:0,shoe:2,bag:3}}},
+  {id:"architect",name:"콰이어트 럭셔리 아키텍트",
+   blurb:"색과 장식을 절제하고 소재의 질감과 핏으로만 말하는 스타일. 과시 없이 격을 드러내고 싶을 때.",
+   colors:[["#d8cdb8","오트밀"],["#b9a988","스톤 베이지"],["#6b5744","모카 브라운"],["#efe8da","아이보리"]],
+   pattern:"솔리드 + 극세 텍스처",
+   materials:["더블페이스 캐시미어","리넨-울 블렌드","브러시드 코튼"],
+   items:["오버사이즈 롱코트","세미와이드 팬츠","터틀넥 니트","소프트 로퍼"],
+   profile:{EI:-30,SN:20,TF:-10,JP:30}, trend:88, genZ:55,
+   ageFit:{teen:35,twenties:60,thirties:80,fifties:92},
+   tpo:{present:80,daily:70,date:82,trip:60,event:78},
+   look:{top:"knit",sleeve:"long",bottom:"wide",outer:"coat",shoes:"loafer",bag:"tote",c:{top:2,bottom:1,outer:3,shoe:2,bag:0}}},
+  {id:"utility",name:"모던 유틸리티 미니멀",
+   blurb:"멀티포켓과 모듈형 레이어링 등 기능성 디테일로 논리를 옷차림에 옮긴 스타일. 정제된 고프코어.",
+   colors:[["#4a4d4f","그래파이트"],["#6b6c47","카키 올리브"],["#838a8c","스틸 그레이"],["#16181a","블랙"]],
+   pattern:"솔리드 + 미세 스티치 라인",
+   materials:["리사이클 테크 원단","발수 코팅 울 블렌드","리사이클 나일론"],
+   items:["테일러드 필드재킷","정제된 카고 팬츠","하이넥 니트","어반 더비화"],
+   profile:{EI:-10,SN:-20,TF:50,JP:-40}, trend:81, genZ:85,
+   ageFit:{teen:70,twenties:85,thirties:70,fifties:45},
+   tpo:{present:58,daily:88,date:66,trip:90,event:55},
+   look:{top:"knit",sleeve:"long",bottom:"wide",outer:"jacket",shoes:"loafer",bag:"cross",c:{top:0,bottom:1,outer:2,shoe:3,bag:3}}},
+  {id:"neovintage",name:"로맨틱 네오빈티지",
+   blurb:"흐르는 드레이프와 은은한 색채로 감정을 옷에 담는 스타일. 직관과 취향이 선명한 사람에게.",
+   colors:[["#c88b96","더스티 로즈"],["#f1e6d8","크림"],["#a79cb0","라벤더 그레이"],["#6e2b3a","버건디"]],
+   pattern:"미세 플로럴 + 페이즐리 포인트",
+   materials:["실크 시폰","브러시드 벨벳","소프트 울"],
+   items:["플로우 미디스커트","러플 블라우스","니트 가디건","메리제인 슈즈"],
+   profile:{EI:-20,SN:60,TF:-70,JP:-20}, trend:78, genZ:70,
+   ageFit:{teen:60,twenties:80,thirties:75,fifties:60},
+   tpo:{present:60,daily:70,date:92,trip:62,event:80},
+   look:{top:"blouse",sleeve:"long",bottom:"skirt",outer:"cardigan",shoes:"heel",bag:"cross",c:{top:1,bottom:0,outer:2,shoe:3,bag:3}}},
+  {id:"colorblock",name:"볼드 컬러블록 맥시멀리즘",
+   blurb:"채도 높은 색면을 과감히 부딪히는 에너지 넘치는 스타일. 존재감을 즐기는 이들에게.",
+   colors:[["#1e4fa3","코발트 블루"],["#e8672c","탠저린"],["#9fc131","라임 그린"],["#c22c7a","마젠타"]],
+   pattern:"컬러블록 + 그래픽 프린트",
+   materials:["테크니컬 저지","글로시 나일론","리브 니트"],
+   items:["크롭 보머재킷","와이드 카고팬츠","그래픽 후디","청키 스니커즈"],
+   profile:{EI:80,SN:30,TF:-20,JP:-60}, trend:75, genZ:90,
+   ageFit:{teen:80,twenties:85,thirties:55,fifties:25},
+   tpo:{present:35,daily:78,date:70,trip:80,event:88},
+   look:{top:"tee",sleeve:"short",bottom:"wide",outer:"jacket",shoes:"sneaker",bag:"cross",c:{top:2,bottom:0,outer:1,shoe:3,bag:0}}},
+  {id:"avantgarde",name:"스컬프처럴 아방가르드",
+   blurb:"비대칭 패널과 입체 실루엣으로 개념을 옷으로 번역하는 스타일. 남들과 다른 답을 찾는 사람에게.",
+   colors:[["#e9e6dd","오프화이트"],["#9a988f","세라믹 그레이"],["#17171a","잉크 블랙"],["#a4502b","러스트"]],
+   pattern:"무지 + 비대칭 패널 라인",
+   materials:["본디드 니트","리사이클 폴리","하드셸 코튼"],
+   items:["비대칭 드레이프 재킷","콘 실루엣 팬츠","스컬프처 이어링","청키 로퍼"],
+   profile:{EI:20,SN:80,TF:10,JP:-60}, trend:83, genZ:75,
+   ageFit:{teen:55,twenties:75,thirties:70,fifties:50},
+   tpo:{present:55,daily:60,date:74,trip:52,event:90},
+   look:{top:"knit",sleeve:"long",bottom:"pants",outer:"jacket",shoes:"loafer",bag:"none",c:{top:0,bottom:2,outer:1,shoe:2,bag:3}}},
+  {id:"athleisure",name:"스포티 엘리베이티드 애슬레저",
+   blurb:"기능성 니트와 스포츠 디테일을 정제해 일상복으로 끌어온 스타일. 몸을 움직이는 순간까지 계산하는 이들에게.",
+   colors:[["#f2f2ef","화이트"],["#a8adaf","실버 그레이"],["#8be23f","네온 그린"],["#131313","블랙"]],
+   pattern:"솔리드 + 스포츠 스트라이프",
+   materials:["테크 니트","리사이클 폴리에스터","메쉬"],
+   items:["크롭 트랙재킷","스트레이트 조거팬츠","립니트 탱크","청키 러너"],
+   profile:{EI:30,SN:-60,TF:-10,JP:-70}, trend:80, genZ:88,
+   ageFit:{teen:75,twenties:85,thirties:65,fifties:40},
+   tpo:{present:30,daily:85,date:60,trip:92,event:50},
+   look:{top:"knit",sleeve:"long",bottom:"jogger",outer:"jacket",shoes:"sneaker",bag:"backpack",c:{top:1,bottom:3,outer:0,shoe:1,bag:3}}},
+  {id:"preppy",name:"올드머니 프레피 리바이벌",
+   blurb:"아가일과 트위드로 대변되는 전통 있는 격식의 스타일. 검증된 방식과 원칙을 중시하는 이들에게.",
+   colors:[["#16273f","네이비"],["#23422f","포레스트 그린"],["#b98a4d","캐멀"],["#efe6d3","크림"]],
+   pattern:"아가일 + 타탄 체크",
+   materials:["셔틀랜드 울","코튼 옥스포드","트위드"],
+   items:["브이넥 니트 베스트","플리츠 스커트 · 슬랙스","옥스포드 셔츠","페니로퍼"],
+   profile:{EI:-10,SN:-60,TF:-20,JP:70}, trend:85, genZ:80,
+   ageFit:{teen:50,twenties:70,thirties:85,fifties:80},
+   tpo:{present:88,daily:74,date:80,trip:58,event:78},
+   look:{top:"shirt",sleeve:"long",bottom:"skirt",outer:"none",shoes:"loafer",bag:"tote",c:{top:3,bottom:0,outer:1,shoe:2,bag:0}}},
+  {id:"eco",name:"에코 내추럴 텍스처",
+   blurb:"자연 소재의 결과 색을 그대로 살린 스타일. 지속가능성과 관계, 온기를 우선하는 이들에게.",
+   colors:[["#7a5a3e","어스 브라운"],["#8a9a72","세이지 그린"],["#d9cdb3","오트밀"],["#b5623c","테라코타"]],
+   pattern:"무지 + 핸드메이드 텍스처",
+   materials:["유기농 리넨","식물 염색 코튼","재생 울"],
+   items:["릴랙스 셔츠재킷","와이드 리넨 팬츠","핸드니트 가디건","캔버스 플랫"],
+   profile:{EI:-10,SN:40,TF:-70,JP:-30}, trend:79, genZ:82,
+   ageFit:{teen:55,twenties:70,thirties:75,fifties:70},
+   tpo:{present:52,daily:82,date:76,trip:86,event:56},
+   look:{top:"shirt",sleeve:"long",bottom:"wide",outer:"cardigan",shoes:"sneaker",bag:"tote",c:{top:2,bottom:1,outer:0,shoe:2,bag:1}}},
+  {id:"monochrome",name:"모노크롬 파워드레싱",
+   blurb:"흑백 대비의 샤프한 실루엣으로 결단력을 표현하는 스타일. 논리와 원칙으로 신뢰를 쌓는 이들에게.",
+   colors:[["#131313","블랙"],["#f4f4f1","화이트"],["#9a9d9f","실버 그레이"],["#7a1f22","딥 레드"]],
+   pattern:"솔리드 + 모노톤 대비 블로킹",
+   materials:["더블페이스 울","스트럭처드 폴리 블렌드","새틴"],
+   items:["샤프숄더 블레이저","스트레이트 슬랙스","실크 셔츠","포인티드 펌프스"],
+   profile:{EI:20,SN:-10,TF:80,JP:60}, trend:87, genZ:50,
+   ageFit:{teen:35,twenties:65,thirties:90,fifties:88},
+   tpo:{present:92,daily:58,date:74,trip:44,event:86},
+   look:{top:"blouse",sleeve:"long",bottom:"pants",outer:"blazer",shoes:"heel",bag:"cross",c:{top:1,bottom:0,outer:0,shoe:0,bag:3}}}
+];
+
+var STYLE_TO_ARCH={
+  minimal:["architect","utility","monochrome"], classic:["preppy","strategist"],
+  street:["utility","colorblock"], romantic:["neovintage"],
+  sporty:["athleisure"], creative:["colorblock","avantgarde"], natural:["eco"]
+};
+var AVOID_HIT={
+  print:["colorblock","neovintage"], deco:["avantgarde","neovintage"],
+  casual:["athleisure","colorblock"], formal:["strategist","monochrome"]
+};
+var TPO_LABEL={present:"발표·면접",daily:"학교·평일",date:"약속·데이트",trip:"나들이·여행",event:"행사·파티"};
+
+/* ---------- state ---------- */
+var S={EI:null,SN:null,TF:null,JP:null,gender:null,age:null,tpo:null,styles:[],avoid:[],photo:null,pc:null};
+
+function bind(id,key,single){
+  var box=document.getElementById(id);
+  box.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    var v=b.dataset.v;
+    if(single){
+      box.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');S[key]=v;
+    }else{
+      var on=b.getAttribute('aria-pressed')==='true';
+      b.setAttribute('aria-pressed',on?'false':'true');
+      if(on)S[key]=S[key].filter(function(x){return x!==v;});else S[key].push(v);
+    }
+    refresh();
+  });
+}
+document.querySelectorAll('.dich').forEach(function(box){
+  var axis=box.dataset.axis;
+  box.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    box.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true');S[axis]=b.dataset.v;
+    var code=(S.EI||'_')+(S.SN||'_')+(S.TF||'_')+(S.JP||'_');
+    document.getElementById('codeLive').innerHTML=code.split('').map(function(c){
+      return c==='_'?'<span class="un">_</span>':c;}).join('');
+    refresh();
+  });
+});
+bind('gender','gender',true);bind('age','age',true);bind('tpo','tpo',true);
+bind('styles','styles',false);bind('avoid','avoid',false);
+
+function code(){return (S.EI&&S.SN&&S.TF&&S.JP)?S.EI+S.SN+S.TF+S.JP:null;}
+function ready(){return !!(code()&&S.gender&&S.age&&S.tpo);}
+function refresh(){document.getElementById('go').disabled=!ready();}
+
+/* ---------- photo ---------- */
+var drop=document.getElementById('drop'),fileInput=document.getElementById('file');
+drop.addEventListener('click',function(){fileInput.click();});
+drop.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fileInput.click();}});
+drop.addEventListener('dragover',function(e){e.preventDefault();drop.classList.add('over');});
+drop.addEventListener('dragleave',function(){drop.classList.remove('over');});
+drop.addEventListener('drop',function(e){e.preventDefault();drop.classList.remove('over');
+  if(e.dataTransfer.files[0])readPhoto(e.dataTransfer.files[0]);});
+fileInput.addEventListener('change',function(){if(fileInput.files[0])readPhoto(fileInput.files[0]);});
+function readPhoto(f){
+  if(!/^image\//.test(f.type))return;
+  var r=new FileReader();
+  r.onload=function(){
+    S.photo=r.result;
+    drop.classList.add('has');
+    drop.innerHTML='<img alt="업로드한 사진" src="'+r.result+'"/><button type="button" class="clear" aria-label="사진 제거">×</button>';
+    drop.querySelector('.clear').addEventListener('click',function(ev){
+      ev.stopPropagation();S.photo=null;S.pc=null;drop.classList.remove('has');
+      drop.innerHTML='<div class="di">↑</div><p>사진을 끌어다 놓거나 눌러서 업로드<br />밝은 곳에서 찍은 얼굴 사진이 가장 정확해요</p>';
+    });
+  };
+  r.readAsDataURL(f);
+}
+
+/* ---------- personal color from photo ---------- */
+function analyzePC(dataUrl,cb){
+  var img=new Image();
+  img.onload=function(){
+    try{
+      var c=document.createElement('canvas'),w=72,h=72;c.width=w;c.height=h;
+      var x=c.getContext('2d');x.drawImage(img,0,0,w,h);
+      var d=x.getImageData(0,0,w,h).data,rr=0,gg=0,bb=0,n=0;
+      for(var i=0;i<d.length;i+=4){
+        var r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];if(a<200)continue;
+        var mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+        if(mx>246&&mn>236)continue;if(mx<18)continue;
+        // rough skin filter: r>=g>=b and not too saturated
+        if(!(r>=g&&g>=b-8))continue;
+        rr+=r;gg+=g;bb+=b;n++;
+      }
+      if(n<20){ // fallback: whole-image average
+        rr=gg=bb=n=0;
+        for(var j=0;j<d.length;j+=4){if(d[j+3]<200)continue;rr+=d[j];gg+=d[j+1];bb+=d[j+2];n++;}
+      }
+      if(!n){cb(null);return;}
+      rr/=n;gg/=n;bb/=n;
+      var warm=rr-bb, bright=(rr+gg+bb)/3;
+      var temp=warm>16?'warm':warm<2?'cool':'neutral';
+      var depth=bright>150?'light':'deep';
+      var season = temp==='warm'
+        ? (depth==='light'?'봄 웜':'가을 웜')
+        : temp==='cool' ? (depth==='light'?'여름 쿨':'겨울 쿨')
+        : (depth==='light'?'라이트 뉴트럴':'딥 뉴트럴');
+      cb({temp:temp,depth:depth,season:season,rgb:[Math.round(rr),Math.round(gg),Math.round(bb)]});
+    }catch(e){cb(null);}
+  };
+  img.onerror=function(){cb(null);};
+  img.src=dataUrl;
+}
+var PC_REC={
+  warm:{good:[["#c98a3d","머스터드"],["#8a6f3e","카키"],["#b5623c","테라코타"],["#e6d6b0","크림"]],
+        bad:[["#3a5a8a","콜드 블루"],["#8a8f97","실버 그레이"]]},
+  cool:{good:[["#2b4a7a","네이비"],["#6e2b3a","버건디"],["#8a8f97","실버 그레이"],["#f4f4f1","퓨어 화이트"]],
+        bad:[["#c98a3d","머스터드"],["#b5623c","테라코타"]]},
+  neutral:{good:[["#6f6a5c","웜 그레이"],["#2c3b52","잉크 네이비"],["#d8cdb8","오트밀"],["#4a3524","딥브라운"]],
+        bad:[["#8be23f","네온"],["#c22c7a","마젠타"]]}
+};
+
+/* ---------- warmth of an archetype palette ---------- */
+function hx(h){h=h.replace('#','');return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];}
+function palTemp(colors){
+  var s=0;colors.forEach(function(c){var v=hx(c[0]);s+=v[0]-v[2];});
+  var a=s/colors.length; return a>14?'warm':a<0?'cool':'neutral';
+}
+
+/* ---------- scoring ---------- */
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function axisVal(letter,pos){ // pos letter maps to +100, opposite -100
+  return letter===pos?100:-100;
+}
+function mbtiFit(arch,c){
+  var mine={EI:axisVal(c[0],'E'),SN:axisVal(c[1],'N'),TF:axisVal(c[2],'T'),JP:axisVal(c[3],'J')};
+  var t=0,dims=["EI","SN","TF","JP"];
+  dims.forEach(function(d){t+=100-Math.abs(mine[d]-arch.profile[d])/2;});
+  return t/4;
+}
+function scoreArch(arch){
+  var c=code();
+  var mf=mbtiFit(arch,c);
+  var tp=arch.tpo[S.tpo];
+  var tr=arch.trend;
+  var af=arch.ageFit[S.age];
+  var gz=arch.genZ;
+  var comp=mf*0.35+tp*0.20+tr*0.20+af*0.15+gz*0.10;
+  // 취향 보정
+  S.styles.forEach(function(st){if((STYLE_TO_ARCH[st]||[]).indexOf(arch.id)>-1)comp+=6;});
+  // 회피 보정
+  S.avoid.forEach(function(av){if((AVOID_HIT[av]||[]).indexOf(arch.id)>-1)comp-=7;});
+  // 퍼스널 컬러 보정
+  var pcNote=null;
+  if(S.pc){
+    var at=palTemp(arch.colors);
+    if(at===S.pc.temp){comp+=5;pcNote='퍼스널 컬러 일치';}
+    else if((at==='warm'&&S.pc.temp==='cool')||(at==='cool'&&S.pc.temp==='warm')){comp-=4;pcNote='톤 상반';}
+  }
+  return {arch:arch,mf:mf,tp:tp,tr:tr,af:af,gz:gz,comp:clamp(comp,0,100),pcNote:pcNote};
+}
+
+/* ================= SVG croquis ================= */
+var SKIN=['#e8c9a6','#d9a57e','#b87f55','#8d5a3b','#f0d6be'];
+var HAIRC=['#2b2622','#4a3728','#1a1a1d','#5c3b26','#7a6a5a'];
+function hashIdx(str,mod){var s=0;for(var i=0;i<str.length;i++)s+=str.charCodeAt(i);return s%mod;}
+
+function figBody(o){
+  var s=[];
+  if(o.code)s.push('<text x="120" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="150" font-weight="700" fill="rgba(120,110,110,.09)" letter-spacing="-8">'+o.code+'</text>');
+  s.push('<path d="M104,196 L100,404 L118,404 L120,198 Z" fill="'+o.skin+'"/>');
+  s.push('<path d="M120,198 L122,404 L140,404 L136,196 Z" fill="'+o.skin+'"/>');
+  s.push('<path d="M96,86 Q78,142 84,208 L94,208 Q92,142 104,92 Z" fill="'+o.skin+'"/>');
+  s.push('<path d="M144,86 Q162,142 156,208 L146,208 Q148,142 136,92 Z" fill="'+o.skin+'"/>');
+  s.push('<rect x="112" y="58" width="16" height="20" fill="'+o.skin+'"/>');
+  s.push('<circle cx="120" cy="42" r="22" fill="'+o.skin+'"/>');
+  s.push(hairShape(o.hair,o.hairC));
+  s.push('<path d="M92,80 Q120,70 148,80 L142,176 Q120,184 98,176 Z" fill="'+o.skin+'"/>');
+  s.push(bottomShape(o.bottom,o.bottomC));
+  s.push(topShape(o.top,o.topC,o.sleeve));
+  s.push(outerShape(o.outer,o.outerC));
+  s.push(shoeShape(o.shoes,o.shoeC));
+  s.push(bagShape(o.bag,o.bagC));
+  return s.join('');
+}
+function figure(o){
+  return '<svg viewBox="0 0 240 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="추천 코디 착용 일러스트">'+figBody(o)+'</svg>';
+}
+function hairShape(t,c){
+  if(t==='short')return '<path d="M98,38 Q98,8 120,6 Q142,8 142,38 L142,52 Q138,30 120,26 Q102,30 98,52 Z" fill="'+c+'"/>';
+  if(t==='bun')return '<circle cx="120" cy="10" r="9" fill="'+c+'"/><path d="M98,38 Q98,8 120,6 Q142,8 142,38 L142,52 Q138,30 120,26 Q102,30 98,52 Z" fill="'+c+'"/>';
+  return '<path d="M95,44 Q95,6 120,4 Q145,6 145,44 L149,132 L135,132 L132,52 Q120,40 108,52 L105,132 L91,132 Z" fill="'+c+'"/>';
+}
+function bottomShape(t,c){
+  if(t==='skirt')return '<path d="M95,166 L80,300 Q120,314 160,300 L145,166 Q120,178 95,166 Z" fill="'+c+'"/>';
+  if(t==='wide')return '<path d="M97,168 L86,402 L118,402 L120,182 L122,402 L154,402 L143,168 Q120,178 97,168 Z" fill="'+c+'"/>';
+  if(t==='jogger')return '<path d="M99,168 L95,392 L119,392 L120,182 L121,392 L145,392 L141,168 Q120,178 99,168 Z" fill="'+c+'"/><rect x="95" y="388" width="24" height="12" rx="3" fill="'+c+'"/><rect x="121" y="388" width="24" height="12" rx="3" fill="'+c+'"/>';
+  return '<path d="M100,168 L96,400 L116,400 L120,180 L124,400 L144,400 L140,168 Q120,178 100,168 Z" fill="'+c+'"/>';
+}
+function topShape(t,c,sleeve){
+  var out='',hemY=(t==='crop')?126:150;
+  out+='<path d="M90,80 Q120,70 150,80 L146,'+hemY+' Q120,'+(hemY+9)+' 94,'+hemY+' Z" fill="'+c+'"/>';
+  if(sleeve==='long'){
+    out+='<path d="M92,82 Q76,142 82,204 L96,204 Q92,142 101,90 Z" fill="'+c+'"/>';
+    out+='<path d="M148,82 Q164,142 158,204 L144,204 Q148,142 139,90 Z" fill="'+c+'"/>';
+  }else if(sleeve==='short'){
+    out+='<path d="M92,82 L85,120 L103,122 L104,88 Z" fill="'+c+'"/>';
+    out+='<path d="M148,82 L155,120 L137,122 L136,88 Z" fill="'+c+'"/>';
+  }
+  return out;
+}
+function outerShape(t,c){
+  if(t==='none')return '';
+  var y=t==='coat'?330:t==='cardigan'?232:t==='blazer'?214:190,out='';
+  out+='<path d="M92,80 L86,'+y+' L104,'+y+' L108,84 Q100,80 92,80 Z" fill="'+c+'"/>';
+  out+='<path d="M148,80 L154,'+y+' L136,'+y+' L132,84 Q140,80 148,80 Z" fill="'+c+'"/>';
+  out+='<path d="M107,80 L120,100 L133,80 L129,76 L120,90 L111,76 Z" fill="'+c+'"/>';
+  out+='<path d="M90,80 Q72,144 79,210 L90,210 Q86,146 100,86 Z" fill="'+c+'"/>';
+  out+='<path d="M150,80 Q168,144 161,210 L150,210 Q154,146 140,86 Z" fill="'+c+'"/>';
+  return out;
+}
+function shoeShape(t,c){
+  if(t==='loafer')return '<path d="M96,404 Q96,415 118,415 L119,404 Z" fill="'+c+'"/><path d="M121,404 L122,415 Q144,415 144,404 Z" fill="'+c+'"/>';
+  if(t==='boot')return '<rect x="96" y="372" width="20" height="44" rx="3" fill="'+c+'"/><rect x="122" y="372" width="20" height="44" rx="3" fill="'+c+'"/>';
+  if(t==='heel')return '<path d="M98,404 L118,404 L114,414 L118,420 L112,420 L110,414 L100,414 Z" fill="'+c+'"/><path d="M122,404 L142,404 L138,414 L142,420 L136,420 L134,414 L124,414 Z" fill="'+c+'"/>';
+  return '<rect x="93" y="398" width="27" height="17" rx="6" fill="'+c+'"/><rect x="120" y="398" width="27" height="17" rx="6" fill="'+c+'"/><rect x="92" y="411" width="29" height="5" rx="2" fill="rgba(255,255,255,.5)"/><rect x="120" y="411" width="29" height="5" rx="2" fill="rgba(255,255,255,.5)"/>';
+}
+function bagShape(t,c){
+  if(t==='tote')return '<rect x="150" y="150" width="30" height="36" rx="2" fill="'+c+'"/><path d="M154,150 Q165,132 176,150" stroke="'+c+'" stroke-width="3" fill="none"/>';
+  if(t==='cross')return '<rect x="150" y="152" width="22" height="17" rx="3" fill="'+c+'"/><path d="M150,152 L118,84" stroke="'+c+'" stroke-width="3"/>';
+  if(t==='backpack')return '<rect x="60" y="96" width="22" height="42" rx="7" fill="'+c+'"/><path d="M82,100 Q100,96 104,110" stroke="'+c+'" stroke-width="4" fill="none"/>';
+  return '';
+}
+function croquisFor(arch,c){
+  var lk=arch.look,cs=arch.colors;
+  var hair=S.gender==='남성'?'short':S.gender==='자유'?'bun':'long';
+  var bottom=lk.bottom;
+  if(bottom==='skirt'&&S.gender==='남성')bottom='pants';
+  return {
+    code:c, hair:hair,
+    skin:SKIN[hashIdx(c,5)], hairC:HAIRC[hashIdx(c+'h',5)],
+    top:lk.top,sleeve:lk.sleeve,topC:cs[lk.c.top][0],
+    bottom:bottom,bottomC:cs[lk.c.bottom][0],
+    outer:lk.outer,outerC:cs[lk.c.outer][0],
+    shoes:lk.shoes,shoeC:cs[lk.c.shoe][0],
+    bag:lk.bag,bagC:cs[lk.c.bag][0]
+  };
+}
+
+/* ================= render ================= */
+var out=document.getElementById('out'),empty=document.getElementById('empty');
+var RANKED=null;
+function esc(s){return String(s).replace(/[&<>"]/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+function bar(l,v){return '<div class="bar-row"><span class="lbl">'+l+'</span><span class="bar-track"><span class="bar-fill" style="width:'+clamp(v,0,100)+'%"></span></span><span class="val">'+Math.round(v)+'</span></div>';}
+
+function render(){
+  var c=code();
+  empty.hidden=true;
+  document.getElementById('note').textContent=c+' · '+TPO_LABEL[S.tpo]+(S.pc?' · '+S.pc.season:'');
+
+  RANKED=ARCHETYPES.map(scoreArch).sort(function(a,b){return b.comp-a.comp;}).slice(0,3);
+
+  var h='';
+
+  if(S.pc){
+    var rec=PC_REC[S.pc.temp];
+    h+='<div class="pc-band">'+
+      (S.photo?'<img class="pcph" alt="내 사진" src="'+S.photo+'"/>':'')+
+      '<div class="pctxt"><b>퍼스널 컬러 · '+esc(S.pc.season)+'</b><br/>'+
+      '어울리는 색 '+rec.good.map(function(x){return '<span class="sw" style="background:'+x[0]+'"></span>';}).join('')+
+      ' &nbsp;·&nbsp; 주의 '+rec.bad.map(function(x){return '<span class="sw" style="background:'+x[0]+'"></span>';}).join('')+
+      '<br/><span style="color:var(--muted);font-size:11.5px">아래 추천에서 '+esc(S.pc.temp==='warm'?'웜':S.pc.temp==='cool'?'쿨':'뉴트럴')+' 팔레트 스타일에 +5점 보정이 들어갔어요.</span></div></div>';
+  }
+
+  h+='<div class="grid">'+RANKED.map(function(r,i){
+    var a=r.arch, cro=croquisFor(a,c);
+    var sw=a.colors.map(function(cl){return '<div class="swatch"><div class="cc" style="background:'+cl[0]+'"></div><div class="cn">'+esc(cl[1])+'</div></div>';}).join('');
+    return '<article class="card" style="animation-delay:'+(i*90)+'ms">'+
+      '<div class="fig"><span class="rank">RANK '+(i+1)+'</span>'+
+        (r.pcNote?'<span class="pcmatch">'+esc(r.pcNote)+'</span>':'')+
+        figure(cro)+'</div>'+
+      '<div class="card-body">'+
+        '<div><p class="concept">'+esc(a.name)+'</p>'+
+        '<div class="score-big">'+Math.round(r.comp)+'<small>/ 100</small></div></div>'+
+        '<div class="bars">'+bar('MBTI',r.mf)+bar('TPO',r.tp)+bar('트렌드',r.tr)+bar('연령',r.af)+'</div>'+
+        '<div class="blurb">'+esc(a.blurb)+'</div>'+
+        '<div class="swatches">'+sw+'</div>'+
+        '<div class="dl">'+
+          '<div class="dr"><span class="k">문양</span><span class="v">'+esc(a.pattern)+'</span></div>'+
+          '<div class="dr"><span class="k">소재</span><span class="v">'+esc(a.materials.join(' · '))+'</span></div>'+
+          '<div class="dr"><span class="k">아이템</span><span class="v">'+esc(a.items.join(' · '))+'</span></div>'+
+        '</div>'+
+        '<button type="button" class="try" data-i="'+i+'">✦ 내 착용 이미지 만들기</button>'+
+        '<div class="tryout" id="tryout-'+i+'"></div>'+
+      '</div>'+
+    '</article>';
+  }).join('')+'</div>';
+
+  // moodboard
+  h+='<div class="board">'+
+    '<h2>스타일 무드보드</h2>'+
+    '<p class="bsub">1위 스타일의 키워드·팔레트·착용 일러스트'+(S.photo?' · 내 사진':'')+'를 한 장으로.</p>'+
+    '<div id="boardHost"></div>'+
+    '<div class="bact"><button type="button" class="ghost" id="mkBoard">이미지 만들기</button>'+
+    '<button type="button" class="ghost" id="dlBoard" hidden>PNG로 저장</button></div>'+
+  '</div>';
+
+  h+='<div class="callout"><b>실제 사진 합성(가상 피팅)</b> — 업로드한 사진에 코디를 입힌 포토리얼 이미지는 '+
+    (TRYON_ENDPOINT?'설정된 서버를 통해 위 “내 착용 이미지 만들기” 버튼에서 생성됩니다.'
+     :'별도의 이미지 생성 API 연동이 필요합니다. 아티팩트 안에서는 외부 호출이 차단되므로, <code>virtual-tryon/</code> 폴더의 서버리스 함수를 배포하고 이 파일 상단 <code>TRYON_ENDPOINT</code>에 URL을 넣으세요.')+
+  '</div>';
+
+  h+='<p class="tagline">Dress for who you are, lead with your style.</p>';
+
+  out.innerHTML=h;
+
+  out.querySelectorAll('.try').forEach(function(b){
+    b.addEventListener('click',function(){runTryOn(+b.dataset.i,b);});
+  });
+  document.getElementById('mkBoard').addEventListener('click',makeBoard);
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ---------- virtual try-on ---------- */
+function tryPrompt(a){
+  return 'Full-body fashion photo of the same person from the reference image, keeping their face, hair and body unchanged. '+
+    'Dress them in: '+a.items.join(', ')+'. Color palette: '+a.colors.map(function(c){return c[1];}).join(', ')+'. '+
+    'Style: '+a.name+', '+a.pattern+'. Materials: '+a.materials.join(', ')+'. '+
+    'Clean studio background, natural lighting, photorealistic, editorial lookbook.';
+}
+function runTryOn(i,btn){
+  var host=document.getElementById('tryout-'+i);
+  var a=RANKED[i].arch;
+  if(!S.photo){host.innerHTML='<p class="tmsg">먼저 왼쪽에서 사진을 업로드해 주세요.</p>';return;}
+  if(!TRYON_ENDPOINT){
+    host.innerHTML='<p class="tmsg">가상 피팅 서버가 아직 연결되지 않았어요. <code>virtual-tryon/</code>의 함수를 배포한 뒤 <code>TRYON_ENDPOINT</code>에 URL을 넣으면 여기서 실제 착용 이미지가 생성됩니다.</p>';
+    return;
+  }
+  btn.disabled=true;btn.textContent='생성 중… (최대 1분)';
+  host.innerHTML='<p class="tmsg">이미지 생성 모델을 호출하는 중…</p>';
+  fetch(TRYON_ENDPOINT,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({image:S.photo,prompt:tryPrompt(a),archetype:a.id})
+  }).then(function(res){return res.json();}).then(function(data){
+    btn.disabled=false;btn.textContent='✦ 다시 만들기';
+    if(data&&data.image){host.innerHTML='<img alt="'+esc(a.name)+' 착용 이미지" src="'+data.image+'"/>';}
+    else{host.innerHTML='<p class="tmsg">이미지를 받지 못했어요. '+esc((data&&data.error)||'서버 응답 형식을 확인하세요.')+'</p>';}
+  }).catch(function(err){
+    btn.disabled=false;btn.textContent='✦ 다시 시도';
+    host.innerHTML='<p class="tmsg">요청 실패: '+esc(String(err))+'</p>';
+  });
+}
+
+/* ---------- moodboard (SVG -> PNG) ---------- */
+function makeBoard(){
+  var r=RANKED[0],a=r.arch,c=code(),cro=croquisFor(a,c);
+  var W=680,H=980;
+  var defs='',photoTag='';
+  if(S.photo){
+    defs='<clipPath id="pc"><rect x="44" y="150" width="230" height="300" rx="10"/></clipPath>';
+    photoTag='<image href="'+S.photo+'" x="44" y="150" width="230" height="300" preserveAspectRatio="xMidYMid slice" clip-path="url(#pc)"/>'+
+      '<rect x="44" y="150" width="230" height="300" rx="10" fill="none" stroke="#00000022"/>';
+  }
+  var figX=S.photo?300:200, sc=(S.photo?330:360)/240;
+  var items=a.items.slice(0,4).map(function(it,idx){
+    return '<text x="48" y="'+(600+idx*24)+'" font-family="sans-serif" font-size="13.5" fill="#333">'+esc(it)+'</text>';
+  }).join('');
+  var pals=a.colors.map(function(p,idx){
+    return '<rect x="'+(48+idx*72)+'" y="770" width="60" height="60" rx="8" fill="'+p[0]+'" stroke="#00000018"/>'+
+      '<text x="'+(48+idx*72)+'" y="846" font-family="sans-serif" font-size="10.5" fill="#6f6a5c">'+esc(p[1])+'</text>';
+  }).join('');
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+
+    '<defs>'+defs+'</defs>'+
+    '<rect width="'+W+'" height="'+H+'" fill="#eae6da"/>'+
+    '<rect x="22" y="22" width="'+(W-44)+'" height="'+(H-44)+'" fill="none" stroke="#211f1a" stroke-width="2"/>'+
+    '<text x="48" y="80" font-family="Georgia,serif" font-size="26" fill="#8a8a8a" letter-spacing="3">STYLE FORECAST</text>'+
+    '<text x="48" y="126" font-family="Georgia,serif" font-size="54" font-weight="700" fill="#211f1a" letter-spacing="4">'+c+'</text>'+
+    photoTag+
+    '<g transform="translate('+figX+',150) scale('+sc.toFixed(3)+')">'+figBody(cro)+'</g>'+
+    '<text x="48" y="500" font-family="sans-serif" font-size="21" font-weight="700" fill="#211f1a">'+esc(a.name)+'</text>'+
+    '<text x="48" y="530" font-family="sans-serif" font-size="14" fill="#6f6a5c">'+(S.pc?esc(S.pc.season)+' · ':'')+esc(TPO_LABEL[S.tpo])+' · 매치 '+Math.round(r.comp)+'</text>'+
+    '<text x="48" y="572" font-family="sans-serif" font-size="14" font-weight="700" fill="#a13b2c">RECOMMENDED ITEMS</text>'+
+    items+pals+
+    '<text x="48" y="900" font-family="Georgia,serif" font-style="italic" font-size="19" fill="#a13b2c">Dress for who you are, lead with your style.</text>'+
+  '</svg>';
+
+  var img=new Image();
+  var url64='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  img.onload=function(){
+    var cv=document.createElement('canvas');cv.width=W*2;cv.height=H*2;
+    var x=cv.getContext('2d');x.scale(2,2);x.drawImage(img,0,0,W,H);
+    var png;try{png=cv.toDataURL('image/png');}catch(e){png=url64;}
+    document.getElementById('boardHost').innerHTML='<img alt="스타일 무드보드" src="'+png+'"/>';
+    var dl=document.getElementById('dlBoard');dl.hidden=false;
+    dl.onclick=function(){var el=document.createElement('a');el.href=png;el.download=c+'-styleforecast.png';el.click();};
+  };
+  img.onerror=function(){document.getElementById('boardHost').innerHTML='<p class="bsub">이미지 생성에 실패했어요. 다시 시도해 주세요.</p>';};
+  img.src=url64;
+}
+
+/* ---------- generate flow ---------- */
+var MSGS=['성향 데이터를 불러오는 중…','컬렉션 무드와 매칭하는 중…','착용 일러스트를 그리는 중…'];
+document.getElementById('form').addEventListener('submit',function(e){
+  e.preventDefault();if(!ready())return;
+  var loader=document.getElementById('loader'),m=document.getElementById('loaderMsg');
+  loader.hidden=false;var k=0;m.textContent=MSGS[0];
+  var iv=setInterval(function(){k++;if(MSGS[k])m.textContent=MSGS[k];},500);
+  var done=function(){clearInterval(iv);loader.hidden=true;render();};
+  if(S.photo){analyzePC(S.photo,function(pc){S.pc=pc;setTimeout(done,1100);});}
+  else{S.pc=null;setTimeout(done,1300);}
+});
+</script>

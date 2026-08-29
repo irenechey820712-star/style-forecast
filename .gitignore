@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editors
+.vscode/
+.idea/
+
+# node (virtual-tryon local dev)
+node_modules/
+.vercel/
+.env
+.env.*
+
+# --- 루트 원본 작업 파일: 정리본을 examples/ · docs/ 에 보관 (루트만 제외) ---
+/이미지.png
+/6e411043-2491-4399-acc2-52da16eeddff.png
+/ChatGPT Image *.png
+/스타일포캐스트_html.txt
+/AI 확장 구성도.txt
+/시스템 구성도.txt
+/LLM 명령어.txt
+/PRD_스타일추천서비스.md
+/2027_패션트렌드_패턴예측_확장판.xlsx
+/MBTI_STYLE_시드데이터.xlsx
+
+# 개인 대화 캡처 (공개 저장소 제외)
+KakaoTalk_*.png

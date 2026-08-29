@@ -1,0 +1,773 @@
+<title>스타일 포캐스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #eae6da;
+    --surface: #f7f4ea;
+    --surface-2: #ffffff;
+    --ink: #211f1a;
+    --muted: #6f6a5c;
+    --line: #d7d1bf;
+    --accent: #a13b2c;
+    --accent-ink: #ffffff;
+    --gold: #93712f;
+    --gold-soft: #e8dcb8;
+    --shadow: 0 1px 2px rgba(33,31,26,0.06), 0 8px 24px -12px rgba(33,31,26,0.18);
+    --radius: 10px;
+    --font-display: 'Gowun Batang', 'Noto Serif KR', serif;
+    --font-body: 'Noto Sans KR', 'Pretendard', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17150f;
+      --surface: #201d16;
+      --surface-2: #262319;
+      --ink: #f1ede1;
+      --muted: #a89f8b;
+      --line: #3a3527;
+      --accent: #e2765f;
+      --accent-ink: #1a1108;
+      --gold: #d3b365;
+      --gold-soft: #3a3120;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17150f;
+    --surface: #201d16;
+    --surface-2: #262319;
+    --ink: #f1ede1;
+    --muted: #a89f8b;
+    --line: #3a3527;
+    --accent: #e2765f;
+    --accent-ink: #1a1108;
+    --gold: #d3b365;
+    --gold-soft: #3a3120;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -12px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 28px;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 46px);
+    margin: 0;
+    text-wrap: balance;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15.5px;
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  /* ---- control panel ---- */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 26px 22px;
+    box-shadow: var(--shadow);
+    margin-bottom: 40px;
+  }
+  .panel-title {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  .axis-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 720px) {
+    .axis-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .axis {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .axis-label {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+  .seg {
+    display: flex;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+  .seg button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 9px 4px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .seg button:hover { background: var(--gold-soft); }
+  .seg button.active {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .seg button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  .age-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .age-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .chip:hover { border-color: var(--gold); }
+  .chip.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .panel-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+  }
+  .type-readout {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .type-readout span { color: var(--accent); }
+  .weights {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ---- results ---- */
+  .results-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .results-head h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin: 0;
+  }
+  .results-head .note { font-size: 13px; color: var(--muted); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    display: flex;
+    gap: 14px;
+    padding: 18px 18px 0;
+    align-items: flex-start;
+  }
+  .rank {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .plate {
+    width: 92px;
+    height: 122px;
+    flex: none;
+    border-radius: 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+  .card-head { flex: 1; min-width: 0; }
+  .concept {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 700;
+    margin: 2px 0 4px;
+    text-wrap: balance;
+  }
+  .score-big {
+    font-family: var(--font-mono);
+    font-size: 26px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .score-big small {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-left: 4px;
+  }
+
+  .bars { padding: 14px 18px 0; display: flex; flex-direction: column; gap: 6px; }
+  .bar-row { display: grid; grid-template-columns: 58px 1fr 30px; align-items: center; gap: 8px; }
+  .bar-row .lbl { font-size: 11px; color: var(--muted); font-family: var(--font-mono); }
+  .bar-track { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--gold); border-radius: 999px; }
+  .bar-row .val { font-size: 11px; color: var(--muted); font-family: var(--font-mono); text-align: right; font-variant-numeric: tabular-nums; }
+
+  .blurb {
+    padding: 14px 18px 0;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .blurb .dynamic { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+
+  .swatches { display: flex; gap: 6px; padding: 14px 18px 0; }
+  .swatch { flex: 1; min-width: 0; }
+  .swatch .chip-color {
+    height: 26px;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+  }
+  .swatch .chip-name {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail-list {
+    padding: 14px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .detail-row { display: flex; gap: 8px; font-size: 12.5px; }
+  .detail-row .k {
+    font-family: var(--font-mono);
+    color: var(--muted);
+    flex: none;
+    width: 46px;
+    padding-top: 1px;
+  }
+  .detail-row .v { color: var(--ink); }
+
+  footer {
+    margin-top: 44px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">2027 Fashion Forecast · MBTI Style Match</div>
+    <h1>스타일 포캐스트</h1>
+    <p class="subtitle">2024~2026 파리·밀라노·뉴욕·런던 컬렉션 데이터를 기반으로, MBTI 성향과 2027년 트렌드를 결합해 나에게 맞는 스타일 상위 3개를 계산합니다.</p>
+  </header>
+
+  <section class="panel">
+    <p class="panel-title">1 · 성향 선택</p>
+    <div class="axis-grid" id="axisGrid"></div>
+
+    <div class="age-row">
+      <span class="axis-label">연령대</span>
+      <div class="age-buttons" id="ageButtons"></div>
+    </div>
+
+    <div class="panel-foot">
+      <div class="type-readout">선택한 유형 &nbsp;<span id="typeReadout">INTJ</span></div>
+      <div class="weights">MBTI 40% · 트렌드 30% · 연령 20% · Z세대 10%</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="results-head">
+      <h2>추천 스타일 TOP 3</h2>
+      <span class="note" id="resultsNote"></span>
+    </div>
+    <div class="grid" id="resultsGrid"></div>
+  </section>
+
+  <footer>매치 스코어 = MBTI 적합도×0.4 + 트렌드 적합도×0.3 + 연령 적합도×0.2 + Z세대 선호도×0.1 (가중 합산, 100점 만점)</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var ARCHETYPES = [
+    {
+      id: "strategist",
+      name: "사일런트 스트래티지스트",
+      blurb: "장식을 걷어낸 구조적 테일러링으로 존재감을 만드는 스타일. 말보다 완성도로 설득하는 사람에게 어울립니다.",
+      colors: [["#3b3a36","차콜 그레이"],["#1f2733","잉크 네이비"],["#171614","오프블랙"],["#8b8579","웜 그레이"]],
+      pattern: "솔리드 + 헤링본 미세 패턴", patternType: "herringbone",
+      materials: ["울 개버딘", "리사이클 캐시미어 블렌드", "실크 안감"],
+      items: ["싱글브레스트 스트럭처드 재킷", "스트레이트 울 트라우저", "미니멀 니트 폴로", "첼시부츠"],
+      profile: { EI: -70, SN: 40, TF: 70, JP: 60 },
+      trend: 90, genZ: 45,
+      ageFit: { teen: 40, twenties: 65, thirties: 85, fifties: 95 }
+    },
+    {
+      id: "architect",
+      name: "콰이어트 럭셔리 아키텍트",
+      blurb: "색과 장식을 절제하고 소재의 질감과 핏으로만 말하는 스타일. 과시 없이 격을 드러내고 싶을 때.",
+      colors: [["#d8cdb8","오트밀"],["#b9a988","스톤 베이지"],["#6b5744","모카 브라운"],["#efe8da","아이보리"]],
+      pattern: "솔리드 + 극세 텍스처 자카드", patternType: "microcheck",
+      materials: ["더블페이스 캐시미어", "리넨-울 블렌드", "브러시드 코튼"],
+      items: ["오버사이즈 롱코트", "세미와이드 팬츠", "터틀넥 니트", "소프트 로퍼"],
+      profile: { EI: -30, SN: 20, TF: -10, JP: 30 },
+      trend: 88, genZ: 55,
+      ageFit: { teen: 35, twenties: 60, thirties: 80, fifties: 92 }
+    },
+    {
+      id: "utility",
+      name: "모던 유틸리티 미니멀",
+      blurb: "멀티포켓과 모듈형 레이어링 등 기능성 디테일로 논리를 옷차림에 옮긴 스타일. 정제된 고프코어 감성.",
+      colors: [["#4a4d4f","그래파이트"],["#6b6c47","카키 올리브"],["#838a8c","스틸 그레이"],["#16181a","블랙"]],
+      pattern: "솔리드 + 미세 스티치 라인", patternType: "stripe",
+      materials: ["리사이클 테크 원단", "발수 코팅 울 블렌드", "리사이클 나일론"],
+      items: ["테일러드 필드재킷", "정제된 카고 팬츠", "하이넥 니트", "어반 더비화"],
+      profile: { EI: -10, SN: -20, TF: 50, JP: -40 },
+      trend: 81, genZ: 85,
+      ageFit: { teen: 70, twenties: 85, thirties: 70, fifties: 45 }
+    },
+    {
+      id: "neovintage",
+      name: "로맨틱 네오빈티지",
+      blurb: "흐르는 드레이프와 은은한 색채로 감정을 옷에 담는 스타일. 직관과 취향이 선명한 사람에게.",
+      colors: [["#c88b96","더스티 로즈"],["#f1e6d8","크림"],["#a79cb0","라벤더 그레이"],["#6e2b3a","버건디"]],
+      pattern: "미세 플로럴 + 페이즐리 포인트", patternType: "floraldot",
+      materials: ["실크 시폰", "브러시드 벨벳", "소프트 울"],
+      items: ["플로우 미디스커트", "러플 블라우스", "니트 가디건", "메리제인 슈즈"],
+      profile: { EI: -20, SN: 60, TF: -70, JP: -20 },
+      trend: 78, genZ: 70,
+      ageFit: { teen: 60, twenties: 80, thirties: 75, fifties: 60 }
+    },
+    {
+      id: "colorblock",
+      name: "볼드 컬러블록 맥시멀리즘",
+      blurb: "채도 높은 색면을 과감히 부딪히는 에너지 넘치는 스타일. 사람들 사이에서 존재감을 즐기는 이들에게.",
+      colors: [["#1e4fa3","코발트 블루"],["#e8672c","탠저린"],["#9fc131","라임 그린"],["#c22c7a","마젠타"]],
+      pattern: "컬러블록 + 그래픽 프린트", patternType: "colorblock",
+      materials: ["테크니컬 저지", "글로시 나일론", "리브 니트"],
+      items: ["크롭 보머재킷", "와이드 카고팬츠", "그래픽 후디", "청키 스니커즈"],
+      profile: { EI: 80, SN: 30, TF: -20, JP: -60 },
+      trend: 75, genZ: 90,
+      ageFit: { teen: 80, twenties: 85, thirties: 55, fifties: 25 }
+    },
+    {
+      id: "avantgarde",
+      name: "스컬프처럴 아방가르드",
+      blurb: "비대칭 패널과 입체 실루엣으로 개념을 옷으로 번역하는 스타일. 남들과 다른 답을 찾는 사람에게.",
+      colors: [["#e9e6dd","오프화이트"],["#9a988f","세라믹 그레이"],["#17171a","잉크 블랙"],["#a4502b","러스트"]],
+      pattern: "무지 + 비대칭 패널 라인", patternType: "panel",
+      materials: ["본디드 니트", "리사이클 폴리", "하드셸 코튼"],
+      items: ["비대칭 드레이프 재킷", "콘 실루엣 팬츠", "스컬프처 이어링", "청키 로퍼"],
+      profile: { EI: 20, SN: 80, TF: 10, JP: -60 },
+      trend: 83, genZ: 75,
+      ageFit: { teen: 55, twenties: 75, thirties: 70, fifties: 50 }
+    },
+    {
+      id: "athleisure",
+      name: "스포티 엘리베이티드 애슬레저",
+      blurb: "기능성 니트와 스포츠 디테일을 정제해 일상복으로 끌어온 스타일. 몸을 움직이는 순간까지 계산하는 이들에게.",
+      colors: [["#f2f2ef","화이트"],["#a8adaf","실버 그레이"],["#8be23f","네온 그린"],["#131313","블랙"]],
+      pattern: "솔리드 + 스포츠 스트라이프", patternType: "stripe",
+      materials: ["테크 니트", "리사이클 폴리에스터", "메쉬"],
+      items: ["크롭 트랙재킷", "스트레이트 조거팬츠", "립니트 탱크", "청키 러너"],
+      profile: { EI: 30, SN: -60, TF: -10, JP: -70 },
+      trend: 80, genZ: 88,
+      ageFit: { teen: 75, twenties: 85, thirties: 65, fifties: 40 }
+    },
+    {
+      id: "preppy",
+      name: "올드머니 프레피 리바이벌",
+      blurb: "아가일과 트위드로 대변되는 전통 있는 격식의 스타일. 검증된 방식과 원칙을 중시하는 이들에게.",
+      colors: [["#16273f","네이비"],["#23422f","포레스트 그린"],["#b98a4d","캐멀"],["#efe6d3","크림"]],
+      pattern: "아가일 + 타탄 체크", patternType: "argyle",
+      materials: ["셔틀랜드 울", "코튼 옥스포드", "트위드"],
+      items: ["브이넥 니트 베스트", "플리츠 스커트 · 슬랙스", "옥스포드 셔츠", "페니로퍼"],
+      profile: { EI: -10, SN: -60, TF: -20, JP: 70 },
+      trend: 85, genZ: 80,
+      ageFit: { teen: 50, twenties: 70, thirties: 85, fifties: 80 }
+    },
+    {
+      id: "eco",
+      name: "에코 내추럴 텍스처",
+      blurb: "자연 소재의 결과 색을 그대로 살린 스타일. 지속가능성과 관계, 온기를 우선하는 이들에게.",
+      colors: [["#7a5a3e","어스 브라운"],["#8a9a72","세이지 그린"],["#d9cdb3","오트밀"],["#b5623c","테라코타"]],
+      pattern: "무지 + 핸드메이드 텍스처", patternType: "fleck",
+      materials: ["유기농 리넨", "식물 염색 코튼", "재생 울"],
+      items: ["릴랙스 셔츠재킷", "와이드 리넨 팬츠", "핸드니트 가디건", "캔버스 플랫"],
+      profile: { EI: -10, SN: 40, TF: -70, JP: -30 },
+      trend: 79, genZ: 82,
+      ageFit: { teen: 55, twenties: 70, thirties: 75, fifties: 70 }
+    },
+    {
+      id: "monochrome",
+      name: "모노크롬 파워드레싱",
+      blurb: "흑백 대비의 샤프한 실루엣으로 결단력을 표현하는 스타일. 논리와 원칙으로 신뢰를 쌓는 이들에게.",
+      colors: [["#131313","블랙"],["#f4f4f1","화이트"],["#9a9d9f","실버 그레이"],["#7a1f22","딥 레드"]],
+      pattern: "솔리드 + 모노톤 대비 블로킹", patternType: "contrast",
+      materials: ["더블페이스 울", "스트럭처드 폴리 블렌드", "새틴"],
+      items: ["샤프숄더 블레이저", "스트레이트 슬랙스", "실크 셔츠", "포인티드 펌프스"],
+      profile: { EI: 20, SN: -10, TF: 80, JP: 60 },
+      trend: 87, genZ: 50,
+      ageFit: { teen: 35, twenties: 65, thirties: 90, fifties: 88 }
+    }
+  ];
+
+  var AXES = [
+    { key: "EI", label: "E / I", left: { code: "I", label: "내향 I" }, right: { code: "E", label: "외향 E" } },
+    { key: "SN", label: "S / N", left: { code: "S", label: "감각 S" }, right: { code: "N", label: "직관 N" } },
+    { key: "TF", label: "T / F", left: { code: "F", label: "감정 F" }, right: { code: "T", label: "사고 T" } },
+    { key: "JP", label: "J / P", left: { code: "P", label: "인식 P" }, right: { code: "J", label: "판단 J" } }
+  ];
+
+  var AGES = [
+    { key: "teen", label: "10대 후반 ~ 20대 초반" },
+    { key: "twenties", label: "20대 후반 ~ 30대 초반" },
+    { key: "thirties", label: "30대 후반 ~ 40대" },
+    { key: "fifties", label: "50대 이상" }
+  ];
+
+  var state = { EI: -100, SN: 100, TF: 100, JP: 100, age: "fifties" };
+
+  function loadState() {
+    try {
+      var saved = JSON.parse(localStorage.getItem("style-forecast-state") || "null");
+      if (saved && typeof saved === "object") {
+        AXES.forEach(function (ax) { if (saved[ax.key] === 100 || saved[ax.key] === -100) state[ax.key] = saved[ax.key]; });
+        if (AGES.some(function (a) { return a.key === saved.age; })) state.age = saved.age;
+      }
+    } catch (e) { /* ignore, use defaults */ }
+  }
+  function saveState() {
+    try { localStorage.setItem("style-forecast-state", JSON.stringify(state)); } catch (e) { /* private mode etc */ }
+  }
+
+  function currentTypeCode() {
+    return (state.EI === 100 ? "E" : "I") +
+           (state.SN === 100 ? "N" : "S") +
+           (state.TF === 100 ? "T" : "F") +
+           (state.JP === 100 ? "J" : "P");
+  }
+
+  function mbtiFit(arch) {
+    var dims = ["EI", "SN", "TF", "JP"];
+    var total = 0;
+    dims.forEach(function (d) { total += 100 - Math.abs(state[d] - arch.profile[d]) / 2; });
+    return total / dims.length;
+  }
+
+  function score(arch) {
+    var mf = mbtiFit(arch);
+    var tf = arch.trend;
+    var af = arch.ageFit[state.age];
+    var gz = arch.genZ;
+    var composite = mf * 0.4 + tf * 0.3 + af * 0.2 + gz * 0.1;
+    return { composite: composite, mf: mf, tf: tf, af: af, gz: gz };
+  }
+
+  // ---- SVG look plate ----
+  function patternMarkup(patId, type, colors) {
+    var base = colors[0][0], b = colors[1][0], c = colors[2][0], d = colors[3][0];
+    var defs = '<pattern id="' + patId + '" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">';
+    switch (type) {
+      case "herringbone":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<path d="M0 8 L8 0" stroke="' + b + '" stroke-width="2" opacity="0.55"/>' +
+          '<path d="M8 16 L16 8" stroke="' + b + '" stroke-width="2" opacity="0.55"/>';
+        break;
+      case "microcheck":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<line x1="0" y1="8" x2="16" y2="8" stroke="' + b + '" stroke-width="1" opacity="0.5"/>' +
+          '<line x1="8" y1="0" x2="8" y2="16" stroke="' + b + '" stroke-width="1" opacity="0.5"/>';
+        break;
+      case "floraldot":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<circle cx="4" cy="4" r="2.2" fill="' + c + '" opacity="0.65"/>' +
+          '<circle cx="12" cy="11" r="2.2" fill="' + c + '" opacity="0.65"/>';
+        break;
+      case "colorblock":
+        defs += '<rect width="8" height="16" fill="' + base + '"/>' +
+          '<rect x="8" width="8" height="16" fill="' + b + '"/>';
+        break;
+      case "panel":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<line x1="0" y1="16" x2="16" y2="0" stroke="' + c + '" stroke-width="1.4" opacity="0.6"/>';
+        break;
+      case "stripe":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<rect x="0" y="6" width="16" height="3" fill="' + b + '" opacity="0.7"/>';
+        break;
+      case "argyle":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<rect x="4" y="4" width="8" height="8" fill="' + b + '" opacity="0.55" transform="rotate(45 8 8)"/>' +
+          '<line x1="0" y1="8" x2="16" y2="8" stroke="' + c + '" stroke-width="0.8" opacity="0.5"/>';
+        break;
+      case "fleck":
+        defs += '<rect width="16" height="16" fill="' + base + '"/>' +
+          '<circle cx="3" cy="5" r="1" fill="' + c + '" opacity="0.7"/>' +
+          '<circle cx="11" cy="3" r="0.8" fill="' + d + '" opacity="0.7"/>' +
+          '<circle cx="13" cy="12" r="1" fill="' + c + '" opacity="0.7"/>' +
+          '<circle cx="6" cy="12" r="0.8" fill="' + d + '" opacity="0.7"/>';
+        break;
+      case "contrast":
+        defs += '<rect width="8" height="8" fill="' + base + '"/>' +
+          '<rect x="8" width="8" height="8" fill="' + b + '"/>' +
+          '<rect y="8" width="8" height="8" fill="' + b + '"/>' +
+          '<rect x="8" y="8" width="8" height="8" fill="' + base + '"/>';
+        break;
+      default:
+        defs += '<rect width="16" height="16" fill="' + base + '"/>';
+    }
+    defs += '</pattern>';
+    return defs;
+  }
+
+  function lookPlateSVG(arch) {
+    var patId = "pat-" + arch.id;
+    var colors = arch.colors;
+    var line = colors[2][0];
+    var accent = colors[3][0];
+    return (
+      '<svg viewBox="0 0 92 122" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + arch.name + ' 무드 플레이트">' +
+        '<defs>' + patternMarkup(patId, arch.patternType, colors) + '</defs>' +
+        '<circle cx="46" cy="16" r="10" fill="none" stroke="' + line + '" stroke-width="1.6" opacity="0.8"/>' +
+        '<path d="M30 30 L62 30 L70 112 L22 112 Z" fill="url(#' + patId + ')" stroke="' + line + '" stroke-width="1" />' +
+        '<rect x="26" y="70" width="40" height="6" fill="' + accent + '" opacity="0.85" />' +
+        '<circle cx="46" cy="102" r="3" fill="' + accent + '" />' +
+      '</svg>'
+    );
+  }
+
+  // ---- render controls ----
+  var axisGrid = document.getElementById("axisGrid");
+  AXES.forEach(function (ax) {
+    var wrap = document.createElement("div");
+    wrap.className = "axis";
+    var lbl = document.createElement("span");
+    lbl.className = "axis-label";
+    lbl.textContent = ax.label;
+    var seg = document.createElement("div");
+    seg.className = "seg";
+
+    [ax.left, ax.right].forEach(function (side) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = side.label;
+      var val = side.code === ax.right.code ? 100 : -100;
+      btn.setAttribute("data-axis", ax.key);
+      btn.setAttribute("data-val", String(val));
+      btn.addEventListener("click", function () {
+        state[ax.key] = val;
+        saveState();
+        render();
+      });
+      seg.appendChild(btn);
+    });
+
+    wrap.appendChild(lbl);
+    wrap.appendChild(seg);
+    axisGrid.appendChild(wrap);
+  });
+
+  var ageButtons = document.getElementById("ageButtons");
+  AGES.forEach(function (a) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chip";
+    btn.textContent = a.label;
+    btn.setAttribute("data-age", a.key);
+    btn.addEventListener("click", function () {
+      state.age = a.key;
+      saveState();
+      render();
+    });
+    ageButtons.appendChild(btn);
+  });
+
+  function syncControls() {
+    axisGrid.querySelectorAll("button[data-axis]").forEach(function (btn) {
+      var axis = btn.getAttribute("data-axis");
+      var val = Number(btn.getAttribute("data-val"));
+      btn.classList.toggle("active", state[axis] === val);
+    });
+    ageButtons.querySelectorAll(".chip").forEach(function (btn) {
+      btn.classList.toggle("active", btn.getAttribute("data-age") === state.age);
+    });
+    document.getElementById("typeReadout").textContent = currentTypeCode();
+  }
+
+  function barRow(label, value) {
+    return (
+      '<div class="bar-row">' +
+        '<span class="lbl">' + label + '</span>' +
+        '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(0, Math.min(100, value)) + '%"></span></span>' +
+        '<span class="val">' + Math.round(value) + '</span>' +
+      '</div>'
+    );
+  }
+
+  function renderResults() {
+    var typeCode = currentTypeCode();
+    var ageLabel = AGES.filter(function (a) { return a.key === state.age; })[0].label;
+
+    var ranked = ARCHETYPES.map(function (arch) {
+      var s = score(arch);
+      return { arch: arch, s: s };
+    }).sort(function (a, b) { return b.s.composite - a.s.composite; }).slice(0, 3);
+
+    document.getElementById("resultsNote").textContent = typeCode + " · " + ageLabel + " 기준";
+
+    var grid = document.getElementById("resultsGrid");
+    grid.innerHTML = "";
+
+    ranked.forEach(function (r, i) {
+      var arch = r.arch, s = r.s;
+      var card = document.createElement("article");
+      card.className = "card";
+
+      var swatchesHTML = arch.colors.map(function (c) {
+        return '<div class="swatch"><div class="chip-color" style="background:' + c[0] + '"></div><div class="chip-name">' + c[1] + '</div></div>';
+      }).join("");
+
+      card.innerHTML =
+        '<div class="card-top">' +
+          '<div class="plate">' + lookPlateSVG(arch) + '</div>' +
+          '<div class="card-head">' +
+            '<div class="rank">RANK ' + (i + 1) + '</div>' +
+            '<div class="concept">' + arch.name + '</div>' +
+            '<div class="score-big">' + Math.round(s.composite) + '<small>/ 100</small></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="bars">' +
+          barRow("MBTI", s.mf) +
+          barRow("트렌드", s.tf) +
+          barRow("연령", s.af) +
+          barRow("Z세대", s.gz) +
+        '</div>' +
+        '<div class="blurb">' +
+          arch.blurb +
+          '<div class="dynamic">' + typeCode + ' · ' + ageLabel + ' 기준 매치 스코어 ' + Math.round(s.composite) + '점</div>' +
+        '</div>' +
+        '<div class="swatches">' + swatchesHTML + '</div>' +
+        '<div class="detail-list">' +
+          '<div class="detail-row"><span class="k">문양</span><span class="v">' + arch.pattern + '</span></div>' +
+          '<div class="detail-row"><span class="k">소재</span><span class="v">' + arch.materials.join(" · ") + '</span></div>' +
+          '<div class="detail-row"><span class="k">아이템</span><span class="v">' + arch.items.join(" · ") + '</span></div>' +
+        '</div>';
+
+      grid.appendChild(card);
+    });
+  }
+
+  function render() {
+    syncControls();
+    renderResults();
+  }
+
+  loadState();
+  render();
+})();
+</script>
