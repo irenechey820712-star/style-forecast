@@ -10,7 +10,8 @@ MBTI 성향 · 상황(TPO) · 퍼스널 컬러를 규칙 기반으로 매칭해 
 | 경로 | 설명 |
 |---|---|
 | [`style-dossier.html`](style-dossier.html) | 메인 앱. 파일 하나로 동작(빌드 불필요). 브라우저로 바로 열면 됨 |
-| [`virtual-tryon/`](virtual-tryon/) | 업로드한 사진에 코디를 입힌 이미지를 생성하는 서버리스 함수 + 배포 가이드 |
+| [`api/tryon.js`](api/tryon.js) | 사진 가상 피팅용 서버리스 함수(Vercel). 저장소를 Vercel에 올리면 앱과 함께 배포됨 |
+| [`docs/가상피팅-배포.md`](docs/가상피팅-배포.md) | 가상 피팅 켜는 방법 (Replicate 토큰 + Vercel) |
 | [`examples/`](examples/) | 초기 기획 목업 이미지와 원본(`스타일 포캐스트` v1) 소스 |
 
 ## 기능
@@ -33,10 +34,10 @@ style-dossier.html 파일을 브라우저로 열면 끝.
 
 ## 실제 가상 피팅(선택)
 
-사진에 코디를 입힌 포토리얼 이미지는 이미지 생성 API가 필요하며 브라우저 단독으로는 불가능합니다.
-[`virtual-tryon/README.md`](virtual-tryon/README.md)의 안내대로 서버리스 함수를 배포하고,
-`style-dossier.html` 상단의 `TRYON_ENDPOINT`에 함수 URL을 넣으면 결과 카드의
-**"내 착용 이미지 만들기"** 버튼이 활성화됩니다.
+사진에 코디를 입힌 포토리얼 이미지는 이미지 생성 모델이 필요하며 브라우저 단독으로는 불가능합니다.
+이 저장소를 **Vercel에 배포**하면 앱과 `/api/tryon` 함수가 함께 올라가고, 코드 수정 없이
+결과 카드의 **"내 착용 이미지 만들기"** 버튼이 켜집니다. (Replicate API 토큰만 환경변수로 등록)
+자세한 절차는 [`docs/가상피팅-배포.md`](docs/가상피팅-배포.md).
 
 ## 라이선스
 

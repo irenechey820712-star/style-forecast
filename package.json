@@ -1,0 +1,7 @@
+{
+  "name": "style-forecast",
+  "version": "2.0.0",
+  "private": true,
+  "description": "MBTI + TPO + personal color styling recommender with optional AI virtual try-on",
+  "engines": { "node": ">=18" }
+}

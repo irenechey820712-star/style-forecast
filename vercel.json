@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": { "api/tryon.js": { "maxDuration": 60 } },
+  "cleanUrls": true
+}

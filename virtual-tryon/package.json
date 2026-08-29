@@ -1,7 +1,0 @@
-{
-  "name": "style-forecast-virtual-tryon",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Serverless virtual try-on endpoint for the Style Forecast web app",
-  "engines": { "node": ">=18" }
-}

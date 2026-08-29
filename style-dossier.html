@@ -343,9 +343,11 @@
 "use strict";
 
 /* ============ virtual try-on endpoint ============
- * 배포한 서버리스 함수 URL을 넣으면 "내 착용 이미지 만들기" 버튼이 활성화됩니다.
- * 비워두면 버튼은 안내 문구만 보여줍니다.  (virtual-tryon/ 폴더의 README 참고) */
-var TRYON_ENDPOINT = "";
+ * Vercel 등에 이 저장소를 배포하면 같은 도메인의 /api/tryon 함수가 자동으로 쓰입니다.
+ * GitHub Pages(정적 호스팅)에서는 백엔드가 없으므로 버튼이 안내만 표시합니다.
+ * 특정 URL을 강제하려면 아래 값을 직접 문자열로 바꾸세요. */
+var TRYON_ENDPOINT = /github\.io$/.test(location.hostname) || location.protocol === "file:"
+  ? "" : "/api/tryon";
 
 /* ---------- theme ---------- */
 (function(){
@@ -765,8 +767,8 @@ function render(){
   '</div>';
 
   h+='<div class="callout"><b>실제 사진 합성(가상 피팅)</b> — 업로드한 사진에 코디를 입힌 포토리얼 이미지는 '+
-    (TRYON_ENDPOINT?'설정된 서버를 통해 위 “내 착용 이미지 만들기” 버튼에서 생성됩니다.'
-     :'별도의 이미지 생성 API 연동이 필요합니다. 아티팩트 안에서는 외부 호출이 차단되므로, <code>virtual-tryon/</code> 폴더의 서버리스 함수를 배포하고 이 파일 상단 <code>TRYON_ENDPOINT</code>에 URL을 넣으세요.')+
+    (TRYON_ENDPOINT?'같은 도메인의 <code>/api/tryon</code> 함수를 통해 위 “내 착용 이미지 만들기” 버튼에서 생성됩니다. (서버에 API 키가 설정돼 있어야 함)'
+     :'이미지 생성 모델이 필요해 브라우저 단독으로는 불가능합니다. 이 저장소를 Vercel에 배포하면 <code>/api/tryon</code> 함수가 자동 연결됩니다 — <code>docs/가상피팅-배포.md</code> 참고.')+
   '</div>';
 
   h+='<p class="tagline">Dress for who you are, lead with your style.</p>';
@@ -792,7 +794,7 @@ function runTryOn(i,btn){
   var a=RANKED[i].arch;
   if(!S.photo){host.innerHTML='<p class="tmsg">먼저 왼쪽에서 사진을 업로드해 주세요.</p>';return;}
   if(!TRYON_ENDPOINT){
-    host.innerHTML='<p class="tmsg">가상 피팅 서버가 아직 연결되지 않았어요. <code>virtual-tryon/</code>의 함수를 배포한 뒤 <code>TRYON_ENDPOINT</code>에 URL을 넣으면 여기서 실제 착용 이미지가 생성됩니다.</p>';
+    host.innerHTML='<p class="tmsg">가상 피팅은 백엔드가 있는 배포에서만 동작해요(GitHub Pages 같은 정적 호스팅 제외). 이 저장소를 Vercel에 올리면 <code>/api/tryon</code> 함수가 자동 연결됩니다. 방법은 <code>docs/가상피팅-배포.md</code> 참고.</p>';
     return;
   }
   btn.disabled=true;btn.textContent='생성 중… (최대 1분)';
