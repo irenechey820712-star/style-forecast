@@ -789,6 +789,18 @@ function tryPrompt(a){
     'Style: '+a.name+', '+a.pattern+'. Materials: '+a.materials.join(', ')+'. '+
     'Clean studio background, natural lighting, photorealistic, editorial lookbook.';
 }
+function downscale(dataUrl,maxDim,cb){
+  var im=new Image();
+  im.onload=function(){
+    var w=im.naturalWidth,h=im.naturalHeight,r=Math.min(1,maxDim/Math.max(w,h));
+    if(r>=1){cb(dataUrl);return;}
+    var cv=document.createElement('canvas');cv.width=Math.round(w*r);cv.height=Math.round(h*r);
+    cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+    try{cb(cv.toDataURL('image/jpeg',0.85));}catch(e){cb(dataUrl);}
+  };
+  im.onerror=function(){cb(dataUrl);};
+  im.src=dataUrl;
+}
 function runTryOn(i,btn){
   var host=document.getElementById('tryout-'+i);
   var a=RANKED[i].arch;
@@ -799,9 +811,10 @@ function runTryOn(i,btn){
   }
   btn.disabled=true;btn.textContent='생성 중… (최대 1분)';
   host.innerHTML='<p class="tmsg">이미지 생성 모델을 호출하는 중…</p>';
+  downscale(S.photo,1024,function(img){
   fetch(TRYON_ENDPOINT,{
     method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({image:S.photo,prompt:tryPrompt(a),archetype:a.id})
+    body:JSON.stringify({image:img,prompt:tryPrompt(a),archetype:a.id})
   }).then(function(res){return res.json();}).then(function(data){
     btn.disabled=false;btn.textContent='✦ 다시 만들기';
     if(data&&data.image){host.innerHTML='<img alt="'+esc(a.name)+' 착용 이미지" src="'+data.image+'"/>';}
@@ -809,6 +822,7 @@ function runTryOn(i,btn){
   }).catch(function(err){
     btn.disabled=false;btn.textContent='✦ 다시 시도';
     host.innerHTML='<p class="tmsg">요청 실패: '+esc(String(err))+'</p>';
+  });
   });
 }
 
