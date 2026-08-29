@@ -3,6 +3,8 @@
 MBTI 성향 · 상황(TPO) · 퍼스널 컬러를 규칙 기반으로 매칭해 어울리는 스타일 TOP 3와
 착용 일러스트를 만들어 주는 단일 파일 웹앱입니다.
 
+**▶ 바로 보기: https://irenechey820712-star.github.io/style-forecast/**
+
 ## 구성
 
 | 경로 | 설명 |
